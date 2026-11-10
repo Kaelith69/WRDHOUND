@@ -34,11 +34,11 @@ Open `http://localhost:8000/` in a modern browser.
 
 ## GitHub Pages deployment
 
-The repository includes a GitHub Actions workflow that runs the JavaScript checks, gameplay regression suite, and PWA metadata validation before deploying the repository root to GitHub Pages. Every push to `main` triggers the workflow.
+The repository includes a GitHub Actions workflow that runs JavaScript syntax checks, gameplay regression tests, and PWA metadata validation before deployment. Every push to `main` triggers it.
+
+**One time repository setup is required:** open **Settings → Pages → Build and deployment**, then set **Source** to **GitHub Actions**. The GitHub integration used to update this repository cannot change this administrative setting. Once selected, the workflow will publish automatically after the test job succeeds.
 
 Published URL: https://kaelith69.github.io/WRDHound/
-
-The workflow configures Pages using the GitHub Actions deployment source. Its deployment job runs only after all tests pass.
 
 ## Install as an app
 
@@ -66,4 +66,4 @@ The game is static and has no build step or runtime server dependency. The servi
 - The chase UI uses shared view transitions when supported and respects reduced-motion preferences.
 - Small-screen layouts account for safe areas, narrow widths, short viewports, and wrapping action controls.
 
-The game is designed around clear goals, fast feedback, player agency, and a gradual skill challenge. It avoids forced streaks, punitive daily resets, and manipulative loss aversion.
+The game is designed around clear goals, fast feedback, player agency, and a gradual skill challenge. It avoids forced streaks, punitive daily timers, and manipulative loss aversion.
