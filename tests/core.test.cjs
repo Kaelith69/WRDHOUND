@@ -57,3 +57,7 @@ assert(src.includes("matchMedia('(pointer: coarse)').matches"),'touch devices sh
 assert(src.includes("wordInput.dispatchEvent(new Event('input', { bubbles: true }))"),'virtual key input must use the same validation path as typed input');
 assert(src.includes("keyboard.querySelectorAll('[data-key]')"),'virtual keyboard should reflect letters already entered');
 console.log('Input accessibility and virtual keyboard smoke checks passed');
+
+assert(src.includes("wordInput.setAttribute('inputmode', visible ? 'none' : 'text')"),'virtual keyboard should avoid opening a second native keyboard');
+assert(src.includes("if (!matchMedia('(pointer: coarse)').matches) $('word-entry').focus"),'touch devices should not auto-open the native keyboard');
+console.log('Touch keyboard conflict checks passed');
