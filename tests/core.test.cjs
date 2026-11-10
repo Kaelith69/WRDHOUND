@@ -48,3 +48,13 @@ assert(src.includes("localStorage.getItem(TUTORIAL) === '1'"),'first-run guide m
 assert(src.includes('function showGuide') && src.includes('function advanceGuide'),'guide controls must be implemented');
 assert(css.includes('@media (max-width:480px)') && css.includes('overflow-x:clip'),'mobile overflow safeguards missing');
 console.log('UI smoke checks passed');
+
+const keyboardMarkup=html.slice(html.indexOf('id="word-keyboard"'),html.indexOf('</div>',html.indexOf('id="word-keyboard"'))+6);
+assert(keyboardMarkup.includes('data-key="ENTER"'),'on-screen keyboard needs an Enter key');
+assert(keyboardMarkup.includes('data-key="BACKSPACE"'),'on-screen keyboard needs a Backspace key');
+assert(html.includes('id="keyboard-toggle"'),'on-screen keyboard needs a discoverable toggle');
+assert(src.includes("KEYBOARD = 'wrdhound-keyboard-v1'"),'keyboard preference must have a stable storage key');
+assert(src.includes("matchMedia('(pointer: coarse)').matches"),'touch devices should get a useful default keyboard state');
+assert(src.includes("wordInput.dispatchEvent(new Event('input', { bubbles: true }))"),'virtual key input must use the same validation path as typed input');
+assert(src.includes("keyboard.querySelectorAll('[data-key]')"),'virtual keyboard should reflect letters already entered');
+console.log('Input accessibility and virtual keyboard smoke checks passed');
