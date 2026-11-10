@@ -1,0 +1,32 @@
+{
+  "id": "./",
+  "name": "WRDHOUND | Word Chase",
+  "short_name": "WRDHOUND",
+  "description": "Outrun the hound across the dictionary, one letter at a time.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#eee9f7",
+  "theme_color": "#eee9f7",
+  "icons": [
+    {
+      "src": "icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
