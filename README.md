@@ -258,7 +258,7 @@ The guide is shown once per browser profile. Completing or skipping it marks it 
 - **Resume:** reload the page to continue the saved campaign.
 - **Theme:** switch between light and dark themes. Your choice is saved locally.
 - **Motion:** tile flips, route updates and interface transitions add feedback. Reduced motion preferences are respected.
-- **Keyboard:** use the word input and submit control. Dialogs support Escape and contained keyboard focus.
+- **Keyboard:** use a physical keyboard or reveal the optional on screen QWERTY keyboard. The on screen keyboard is shown by default on coarse pointer devices, can be toggled, and remembers your preference locally. Both input methods use the same word validation and danger feedback. Dialogs support Escape and contained keyboard focus.
 - **Mobile layout:** the board and controls adapt to narrow screens, safe areas and shorter viewports.
 - **No account required:** game progress is stored on the device, not in a remote player account.
 
