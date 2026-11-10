@@ -235,3 +235,13 @@ button:focus-visible,input:focus-visible { outline:3px solid var(--tile); outlin
 @media (prefers-reduced-motion:reduce) {
   .guide-button,.tutorial-progress i { transition:none; }
 }
+
+
+/* Optional touch keyboard, styled as physical WRDHOUND letter tiles */
+.virtual-keyboard { display:grid; gap:7px; margin-top:13px; padding:10px; border:2px solid var(--line); border-radius:15px; background:var(--paper-strong); }
+.keyboard-row { display:flex; justify-content:center; gap:5px; }
+.key-button { display:grid; min-width:0; min-height:43px; flex:1 1 0; place-items:center; padding:0 3px; border:2px solid var(--line-strong); border-radius:8px; background:var(--paper); color:var(--ink); font:800 14px "DM Mono",monospace; box-shadow:0 3px 0 var(--line); cursor:pointer; user-select:none; }
+.key-button:active,.key-button.active { transform:translateY(2px); box-shadow:none; background:var(--tile); color:var(--tile-ink); }
+.key-button.key-action { flex:1.55 1 0; background:var(--accent); color:var(--accent-ink); font:900 10px Inter,ui-sans-serif,sans-serif; letter-spacing:.04em; }
+.keyboard-row-middle { padding:0 4%; }
+@media (max-width:380px) { .virtual-keyboard { padding:7px; gap:6px; } .keyboard-row { gap:3px; } .key-button { min-height:40px; border-radius:7px; font-size:12px; } .key-button.key-action { font-size:9px; } }
