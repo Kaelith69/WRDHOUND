@@ -121,7 +121,7 @@
         <section class="card-panel status-strip" aria-label="Chase status">
           <div class="meter"><div class="meter-head"><span>EXIT</span><strong id="exit-dist">0</strong></div><div class="bar"><span id="exit-bar"></span></div></div>
           <div class="meter"><div class="meter-head"><span>GAP</span><strong id="gap-val">0</strong></div><div class="pips" id="gap-pips"></div></div>
-          <div class="meter"><div class="meter-head"><span>MOVES LEFT</span><strong id="moves-left">0</strong></div><div class="bar bar-moves"><span id="moves-bar"></span></div></div>
+          <div class="meter"><div class="meter-head"><span>REMAINING MOVES</span><strong id="moves-left">0</strong></div><div class="bar bar-moves"><span id="moves-bar"></span></div></div>
         </section>
 
         <section class="card-panel hound-panel" id="hound-panel" aria-label="The Hound">
@@ -139,11 +139,25 @@
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12 20 4l-5 16-3-7-8-1Zm8 1 8-9"/></svg>
             </button>
           </form>
-          <p id="message" class="game-message" role="status" aria-live="polite" hidden></p>
           <div class="entry-actions">
+            <button class="secondary-button" id="keyboard-toggle" type="button" aria-expanded="false" aria-controls="word-keyboard">Show keyboard</button>
             <button class="secondary-button" id="share-challenge-button" type="button">Share challenge</button>
             <button class="secondary-button" id="new-game-button" type="button">New game</button>
           </div>
+          <div class="virtual-keyboard" id="word-keyboard" role="group" aria-label="On screen word keyboard" hidden>
+            <div class="keyboard-row">
+              <button class="key-button" type="button" data-key="Q" aria-label="Q">Q</button><button class="key-button" type="button" data-key="W" aria-label="W">W</button><button class="key-button" type="button" data-key="E" aria-label="E">E</button><button class="key-button" type="button" data-key="R" aria-label="R">R</button><button class="key-button" type="button" data-key="T" aria-label="T">T</button><button class="key-button" type="button" data-key="Y" aria-label="Y">Y</button><button class="key-button" type="button" data-key="U" aria-label="U">U</button><button class="key-button" type="button" data-key="I" aria-label="I">I</button><button class="key-button" type="button" data-key="O" aria-label="O">O</button><button class="key-button" type="button" data-key="P" aria-label="P">P</button>
+            </div>
+            <div class="keyboard-row keyboard-row-middle">
+              <button class="key-button" type="button" data-key="A" aria-label="A">A</button><button class="key-button" type="button" data-key="S" aria-label="S">S</button><button class="key-button" type="button" data-key="D" aria-label="D">D</button><button class="key-button" type="button" data-key="F" aria-label="F">F</button><button class="key-button" type="button" data-key="G" aria-label="G">G</button><button class="key-button" type="button" data-key="H" aria-label="H">H</button><button class="key-button" type="button" data-key="J" aria-label="J">J</button><button class="key-button" type="button" data-key="K" aria-label="K">K</button><button class="key-button" type="button" data-key="L" aria-label="L">L</button>
+            </div>
+            <div class="keyboard-row keyboard-row-bottom">
+              <button class="key-button key-action" type="button" data-key="ENTER" aria-label="Submit word">ENTER</button>
+              <button class="key-button" type="button" data-key="Z" aria-label="Z">Z</button><button class="key-button" type="button" data-key="X" aria-label="X">X</button><button class="key-button" type="button" data-key="C" aria-label="C">C</button><button class="key-button" type="button" data-key="V" aria-label="V">V</button><button class="key-button" type="button" data-key="B" aria-label="B">B</button><button class="key-button" type="button" data-key="N" aria-label="N">N</button><button class="key-button" type="button" data-key="M" aria-label="M">M</button>
+              <button class="key-button key-action" type="button" data-key="BACKSPACE" aria-label="Delete last letter">⌫</button>
+            </div>
+          </div>
+          <p id="message" class="game-message" role="status" aria-live="polite" hidden></p>
         </section>
 
         <section class="card-panel finish-panel" id="finish-panel" hidden>
