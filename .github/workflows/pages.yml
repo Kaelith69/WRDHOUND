@@ -1,0 +1,62 @@
+name: Test and deploy WRDHOUND to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Check JavaScript syntax
+        run: |
+          node --check hound.js
+          node --check sw.js
+      - name: Run gameplay and UI regression tests
+        run: node tests/core.test.cjs
+      - name: Validate PWA metadata and deployment entry point
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const manifest = JSON.parse(fs.readFileSync('manifest.webmanifest', 'utf8'));
+          for (const path of ['index.html', 'hound.html', 'hound.css', 'hound.js', 'dictionary.js', 'sw.js', 'icon-192.png', 'icon-512.png']) {
+            if (!fs.existsSync(path)) throw new Error(`Missing ${path}`);
+          }
+          if (manifest.display !== 'standalone' || !manifest.start_url || !manifest.scope || manifest.icons.length < 2) throw new Error('Invalid PWA manifest');
+          const html = fs.readFileSync('index.html', 'utf8');
+          if (!html.includes('rel="manifest"') || !html.includes('navigator.serviceWorker.register')) throw new Error('PWA entry point incomplete');
+          console.log('PWA metadata checks passed');
+          NODE
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
