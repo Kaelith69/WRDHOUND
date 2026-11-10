@@ -32,6 +32,20 @@ Open `http://localhost:8000/` in a modern browser.
 - `manifest.webmanifest`, `sw.js`, and `icon-*.png`: installable PWA and offline app shell.
 - `tests/core.test.cjs`: graph and puzzle solver regression checks.
 
+## GitHub Pages deployment
+
+The repository includes a GitHub Actions workflow that runs the JavaScript checks, gameplay regression suite, and PWA metadata validation before deploying the repository root to GitHub Pages. Every push to `main` triggers the workflow.
+
+Published URL: https://kaelith69.github.io/WRDHound/
+
+The workflow configures Pages using the GitHub Actions deployment source. Its deployment job runs only after all tests pass.
+
+## Install as an app
+
+- **Android and desktop Chromium:** open the published HTTPS site and use the browser's Install option when offered. Chrome, Edge, and other supported browsers may expose installation in the address bar or browser menu.
+- **iPhone and iPad:** open the site in Safari, tap **Share**, then **Add to Home Screen**. iOS does not expose the Chromium `beforeinstallprompt` event.
+- The web app manifest defines the app name, icons, standalone display mode, start URL, and scope. The service worker precaches the game shell and dictionary so the app can launch offline after its first successful load.
+
 ## Verify
 
 Requires Node.js:
@@ -42,8 +56,7 @@ node --check sw.js
 node tests/core.test.cjs
 ```
 
-The game is static and has no build step or runtime server dependency. Deploy the complete folder to any HTTPS static host. The service worker requires HTTPS or localhost.
-
+The game is static and has no build step or runtime server dependency. The service worker requires HTTPS or localhost.
 
 ## First-run onboarding and progression
 
@@ -53,4 +66,4 @@ The game is static and has no build step or runtime server dependency. Deploy th
 - The chase UI uses shared view transitions when supported and respects reduced-motion preferences.
 - Small-screen layouts account for safe areas, narrow widths, short viewports, and wrapping action controls.
 
-The game is designed around clear goals, fast feedback, player agency, and a gradual skill challenge. It avoids forced streaks, punitive daily timers, and manipulative loss aversion.
+The game is designed around clear goals, fast feedback, player agency, and a gradual skill challenge. It avoids forced streaks, punitive daily resets, and manipulative loss aversion.
