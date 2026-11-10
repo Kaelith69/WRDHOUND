@@ -440,5 +440,7 @@ button:focus-visible,input:focus-visible { outline:3px solid var(--tile); outlin
   .card-panel,.hound-panel { padding-top:7px; padding-bottom:7px; }
   .virtual-keyboard { gap:4px; margin-top:6px; padding:5px; }
   .key-button { min-height:29px; }
-  .chain-panel { display:none; }
+  .chain-panel { padding:5px 8px; }
+  .chain-panel .panel-heading h2 { font-size:11px; }
+  .chain-list { max-height:28px; margin:3px 0 0; overflow-y:auto; }
 }
