@@ -67,5 +67,5 @@ assert(css.includes('@media (max-width:600px)'),'compact mobile layout must targ
 assert(css.includes('grid-template-columns:repeat(3,minmax(0,1fr))'),'mobile game actions must share one compact row');
 assert(css.includes('max-height:42px'),'mobile chase log must not dominate the viewport');
 assert(css.includes('@media (max-width:600px) and (max-height:740px)'),'short mobile viewports need an additional compact mode');
-assert(css.includes('.chain-panel { display:none; }'),'short mobile viewports should prioritize the playable area');
+assert(css.includes('.chain-list { max-height:28px; margin:3px 0 0; overflow-y:auto; }'),'short mobile viewports must retain accessible compact chase history');
 console.log('Compact mobile layout regression checks passed');
