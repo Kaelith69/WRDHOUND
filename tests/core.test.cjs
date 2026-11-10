@@ -69,3 +69,11 @@ assert(css.includes('max-height:42px'),'mobile chase log must not dominate the v
 assert(css.includes('@media (max-width:600px) and (max-height:740px)'),'short mobile viewports need an additional compact mode');
 assert(css.includes('.chain-list { max-height:28px; margin:3px 0 0; overflow-y:auto; }'),'short mobile viewports must retain accessible compact chase history');
 console.log('Compact mobile layout regression checks passed');
+
+const serviceWorker = fs.readFileSync(require('path').join(__dirname,'..','sw.js'),'utf8');
+const indexHtml = fs.readFileSync(require('path').join(__dirname,'..','index.html'),'utf8');
+const legacyHtml = fs.readFileSync(require('path').join(__dirname,'..','hound.html'),'utf8');
+assert(serviceWorker.includes("const CACHE_NAME = 'wrdhound-shell-v4'"),'service worker cache version must change when shell assets change');
+assert(indexHtml.includes('href="hound.css?v=4"'),'main entry must request a versioned stylesheet');
+assert(legacyHtml.includes('href="hound.css?v=4"'),'legacy entry must request a versioned stylesheet');
+console.log('Service worker cache invalidation checks passed');
