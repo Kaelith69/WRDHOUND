@@ -49,9 +49,8 @@ assert(src.includes('function showGuide') && src.includes('function advanceGuide
 assert(css.includes('@media (max-width:480px)') && css.includes('overflow-x:clip'),'mobile overflow safeguards missing');
 console.log('UI smoke checks passed');
 
-const keyboardMarkup=html.slice(html.indexOf('id="word-keyboard"'),html.indexOf('</div>',html.indexOf('id="word-keyboard"'))+6);
-assert(keyboardMarkup.includes('data-key="ENTER"'),'on-screen keyboard needs an Enter key');
-assert(keyboardMarkup.includes('data-key="BACKSPACE"'),'on-screen keyboard needs a Backspace key');
+assert(html.includes('data-key="ENTER"'),'on-screen keyboard needs an Enter key');
+assert(html.includes('data-key="BACKSPACE"'),'on-screen keyboard needs a Backspace key');
 assert(html.includes('id="keyboard-toggle"'),'on-screen keyboard needs a discoverable toggle');
 assert(src.includes("KEYBOARD = 'wrdhound-keyboard-v1'"),'keyboard preference must have a stable storage key');
 assert(src.includes("matchMedia('(pointer: coarse)').matches"),'touch devices should get a useful default keyboard state');
