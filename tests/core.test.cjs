@@ -61,3 +61,11 @@ console.log('Input accessibility and virtual keyboard smoke checks passed');
 assert(src.includes("wordInput.setAttribute('inputmode', visible ? 'none' : 'text')"),'virtual keyboard should avoid opening a second native keyboard');
 assert(src.includes("if (!matchMedia('(pointer: coarse)').matches) $('word-entry').focus"),'touch devices should not auto-open the native keyboard');
 console.log('Touch keyboard conflict checks passed');
+
+assert(css.includes('/* Compact mobile play surface: keep the full chase loop in view */'),'compact mobile layout must be present');
+assert(css.includes('@media (max-width:600px)'),'compact mobile layout must target phone widths');
+assert(css.includes('grid-template-columns:repeat(3,minmax(0,1fr))'),'mobile game actions must share one compact row');
+assert(css.includes('max-height:42px'),'mobile chase log must not dominate the viewport');
+assert(css.includes('@media (max-width:600px) and (max-height:740px)'),'short mobile viewports need an additional compact mode');
+assert(css.includes('.chain-panel { display:none; }'),'short mobile viewports should prioritize the playable area');
+console.log('Compact mobile layout regression checks passed');
