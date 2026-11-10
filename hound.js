@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const SAVE = 'wrdhound-save-v2', LEGACY_SAVE = 'wrdhound-save-v1', THEME = 'wrdhound-theme', TUTORIAL = 'wrdhound-tutorial-v1';
+  const SAVE = 'wrdhound-save-v2', LEGACY_SAVE = 'wrdhound-save-v1', THEME = 'wrdhound-theme', TUTORIAL = 'wrdhound-tutorial-v1', KEYBOARD = 'wrdhound-keyboard-v1';
   const START_SCORE = 25, HINT_BASE = 5, SLACK = 5;
   let words = [], idx = new Map(), adj = [], giant = [], dist = new Int8Array(0), S = null, busy = false;
 
@@ -301,6 +301,36 @@
       const v = e.target.value.replace(/[^a-z]/gi, '').toUpperCase().slice(0, 4); e.target.value = v;
       $('submit-button').disabled = v.length !== 4; const d = previewDanger(v) && v !== S.exit; e.target.classList.toggle('danger', d);
       if (d) say(`${v} is inside the Hound’s reach.`, 'error'); else if (!$('message').hidden && $('message').classList.contains('error')) say('');
+    });
+    const keyboard = $('word-keyboard'), keyboardToggle = $('keyboard-toggle'), wordInput = $('word-entry');
+    const storedKeyboard = (() => { try { return localStorage.getItem(KEYBOARD); } catch (_) { return null; } })();
+    const setKeyboardVisible = (visible, persist = true) => {
+      keyboard.hidden = !visible;
+      keyboardToggle.textContent = visible ? 'Hide keyboard' : 'Show keyboard';
+      keyboardToggle.setAttribute('aria-expanded', String(visible));
+      if (persist) try { localStorage.setItem(KEYBOARD, visible ? '1' : '0'); } catch (_) {}
+    };
+    setKeyboardVisible(storedKeyboard === '1' || (storedKeyboard === null && matchMedia('(pointer: coarse)').matches), false);
+    keyboardToggle.addEventListener('click', () => setKeyboardVisible(keyboard.hidden));
+    const syncKeyboard = () => {
+      const value = wordInput.value.toUpperCase();
+      keyboard.querySelectorAll('[data-key]').forEach((key) => {
+        const letter = key.dataset.key;
+        if (letter.length === 1) key.classList.toggle('active', value.includes(letter));
+      });
+    };
+    wordInput.addEventListener('input', syncKeyboard);
+    keyboard.addEventListener('click', (event) => {
+      const key = event.target.closest('button[data-key]');
+      if (!key || S.status !== 'play') return;
+      const value = key.dataset.key;
+      if (value === 'ENTER') {
+        if (wordInput.value.length === 4) $('move-form').requestSubmit();
+        return;
+      }
+      if (value === 'BACKSPACE') wordInput.value = wordInput.value.slice(0, -1);
+      else if (/^[A-Z]$/.test(value) && wordInput.value.length < 4) wordInput.value += value;
+      wordInput.dispatchEvent(new Event('input', { bubbles: true }));
     });
     $('move-form').addEventListener('submit', submit);
     $('hint-button').addEventListener('click', openHint);
