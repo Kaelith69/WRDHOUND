@@ -250,7 +250,7 @@
     $('loading').hidden = true; busy = false;
     if (!s) { $('error-message').textContent = 'The puzzle could not be generated.'; $('error-panel').hidden = false; return; }
     S = s; save(); say(''); vt(() => { $('game').hidden = false; ['you-word', 'hound-word', 'exit-word'].forEach((id) => delete $(id).dataset.w); $('danger-list').dataset.w = ''; render(false); });
-    setTimeout(() => $('word-entry').focus({ preventScroll: true }), 300);
+    setTimeout(() => { if (!matchMedia('(pointer: coarse)').matches) $('word-entry').focus({ preventScroll: true }); }, 300);
   }
   const link = () => location.origin + location.pathname + '?c=' + [S.puzzle.r, S.puzzle.h, S.puzzle.e].join('.');
   async function shareText(text, status) {
@@ -308,6 +308,7 @@
       keyboard.hidden = !visible;
       keyboardToggle.textContent = visible ? 'Hide keyboard' : 'Show keyboard';
       keyboardToggle.setAttribute('aria-expanded', String(visible));
+      wordInput.setAttribute('inputmode', visible ? 'none' : 'text');
       if (persist) try { localStorage.setItem(KEYBOARD, visible ? '1' : '0'); } catch (_) {}
     };
     setKeyboardVisible(storedKeyboard === '1' || (storedKeyboard === null && matchMedia('(pointer: coarse)').matches), false);
